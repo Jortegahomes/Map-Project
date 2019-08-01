@@ -1,4 +1,4 @@
-var map = L.map('mymap').setView([36.77, -119.41], 13);
+var map = L.map('mymap').setView([36.77, -119.41], 5);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -8,7 +8,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(map);
 
 //create the main funciton **note there are three funcitons in this mega function**
-var bubbles = ("");
+var bubbles = [];
 function fetchData(){
   fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson") //link used to "fetch the data"
   .then(function(response){ //tcreate a funciton to remove the data, snapshot it and stored in "response"
@@ -22,13 +22,38 @@ function fetchData(){
              //we are creating a function to loop the data we chose.
 
       for(i=0; i<data.features.length; i++){ //setting the parameters for the loop
-     bubbles = L.marker([data.features[i].geometry.coordinates[1], data.features[i].geometry.coordinates[0]]).addTo(map); // the loop will be for creating markers or anything else we need. //
+     bubbles[i] = L.marker([data.features[i].geometry.coordinates[1], data.features[i].geometry.coordinates[0]]); // the loop will be for creating markers or anything else we need. //
         //create the fx needed to make multiple markers with required data.
-        bubbles.bindPopup("<strong>Magnitude:</strong> " + data.features[i].properties.mag + "<br /><strong>Location:</strong> " + data.features[i].properties.place + "<br /><strong>Alert:</strong> " + data.features[i].properties.alert).addTo(map);
+        bubbles[i].bindPopup("<strong>Magnitude:</strong> " + data.features[i].properties.mag + "<br /><strong>Location:</strong> " + data.features[i].properties.place + "<br /><strong>Alert:</strong> " + data.features[i].properties.alert);
+        console.log(bubbles[i]);
 
        }
  });
  }
  fetchData(); //RUN THAT FUNCTION!!!!!
 
- // NOTE: NEW FUNC: TIME TO CREATE THAT BUTTON WITH EVENT LISTENER AND AN IF ELSE STATEMENT.
+
+var checkbox = document.getElementById("customCheck1"); //get element from html
+
+ function runThisFunc(){
+  if(checkbox.checked === true){
+      for(i=0; i < bubbles.length; i++){
+        bubbles[i].addTo(map);
+      }
+  }
+else{
+    for(i=0; i < bubbles.length; i++){
+      map.removeLayer(bubbles[i]);
+    }
+
+}
+}
+runThisFunc();
+
+// checkbox.addEventListener('click', function(){
+//   if(checkedbox.checked === true){
+//     bubbles.addTo(map);
+//   }else{
+//     console.log('not checked')
+//   }
+// })

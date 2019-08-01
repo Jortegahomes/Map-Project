@@ -1,3 +1,11 @@
 #mymap{
-  height:800px
+  height:800px;
+}
+
+#wholecontainer{
+  background-color: #1a1a1a;
+}
+
+#fetchbutton{
+  text-color: #e6e5e5;
 }

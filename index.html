@@ -42,17 +42,26 @@
 <!-- NOTE: start of button to manually fetch data -->
 
 
-<div class="container-fluid">
+<div class="container-fluid" id="wholecontainer">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
       <button class="btn btn-secondary" type"submit" id="fetchbutton">Fetch My Data</button>
-      <div class="row">
-        <div class="col-sm-12" id="mymap">
-        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck1" onclick="runThisFunc()">
+        <label class="custom-control-label" for="customCheck1">Fetch My Data Checkbox!</label>
       </div>
     </div>
   </div>
 </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12" id="mymap"> </div>
+  </div>
+</div>
+
 
 
     <!-- Make sure you put this AFTER Leaflet's CSS -->  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
